@@ -8,16 +8,17 @@ use std::usize;
 
 
 // fast solution
-fn firts_word_my(s: &String) -> String {
+fn firts_word_my(s: &String) -> &str {
     for word in s.split(' '){
-        return String::from(word);
+        return word;
     }
-    s.clone()
+    s.as_str()
 }
+
 
 //book solution
 // The one problem what I see is a problem condition
-fn first_word(s: &String) -> usize {
+fn first_word_book(s: &String) -> usize {
     let bytes = s.as_bytes();
 
     for (i, &item) in bytes.iter().enumerate() {
@@ -34,6 +35,18 @@ fn first_word(s: &String) -> usize {
 // write a function that takes a string of words,
 // separated by spaces, and returns the FIRST WORD it finds in that string.
 
+fn first_word_book_two(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    &s[..]
+}
+
 
 // If we need find a slice index, then
 fn get_first_space_index(string: &String) -> usize{
@@ -45,6 +58,13 @@ fn get_first_space_index(string: &String) -> usize{
 // This a example with use String methods
 
 fn main() {
-    let firts_word = first_word(&String::from("Hello word"));
-    let firts_word = get_first_space_index(&String::from("Hello word"));
+    let binding = String::from("Hello");
+    let firts_word = first_word_book(&binding);
+    println!("{firts_word}");
+    let firts_word = get_first_space_index(&binding);
+    println!("{firts_word}");
+    let firts_word = first_word_book_two(&binding);
+    println!("{firts_word}");
+    let firts_word = firts_word_my(&binding);
+    println!("{firts_word}");
 }
