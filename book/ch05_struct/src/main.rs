@@ -10,4 +10,5 @@ fn area_tuple(dimensions: (u32, u32)) -> u32 {
 
 fn main() {
     println!("The area of the rectangle is {} square pixels.", area(30, 50));
+    println!("The area of the rectangle is {} square pixels.", area_tuple((30, 50)));
 }
