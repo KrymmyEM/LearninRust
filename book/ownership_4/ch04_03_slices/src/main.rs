@@ -58,13 +58,15 @@ fn get_first_space_index(string: &String) -> usize{
 // This a example with use String methods
 
 fn main() {
-    let binding = String::from("Hello");
+    let mut binding = String::from("Hello");
     let firts_word = first_word_book(&binding);
     println!("{firts_word}");
     let firts_word = get_first_space_index(&binding);
     println!("{firts_word}");
-    let firts_word = first_word_book_two(&binding);
-    println!("{firts_word}");
+    let word = first_word_book_two(&binding);
     let firts_word = firts_word_my(&binding);
+    //binding.clear();
     println!("{firts_word}");
+    
+    
 }
