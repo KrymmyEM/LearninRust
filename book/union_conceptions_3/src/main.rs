@@ -5,8 +5,6 @@
 // 2. Generate the nth Fibonacci number.
 // 3. Print the lyrics to the Christmas song "The Twelve Days of Christmas" using the repetitions in the song.
 
-use std::str::FromStr;
-
 // ______________1_______________
 fn celsius_to_fahrenheit(celsius: f64) -> f64 {
     celsius * 9.0 / 5.0 + 32.0
@@ -52,7 +50,7 @@ fn days_of_christmas(days: u8) -> String {
     ];
 
     let mut result = String::new();
-    for i in (0..days) {
+    for i in 0..days {
         let topic_str: String = format!("On the {} day of Christmas,\nMy true love sent to me\n", days_words.get(i as usize).expect("Index out of range"));
         let mut addition_string: String = String::new();
         result.push_str(&topic_str.as_str());
@@ -78,6 +76,8 @@ fn days_of_christmas(days: u8) -> String {
 // ______________________________   
 
 fn main() {
+    println!("{}", celsius_to_fahrenheit(0.0));
+    println!("{}", fahrengheit_to_celsius(32.0));
     println!("{}", fibonacci_recurcive(20));
     println!("{}", days_of_christmas(12));
     
