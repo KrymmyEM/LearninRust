@@ -2,10 +2,10 @@ use std::collections::HashMap;
 
 
 enum Message {
+    Quit,
     Enter,
     Exit,
-    Punch(Character, i32),
-    Quit,
+    Punch(usize, i32),
     Move{
         x: i32,
         y: i32
@@ -36,45 +36,33 @@ impl Character {
     
 }
 
-struct Actions {
-    actions: HashMap<String, Vec<Message>>,
+struct Action {
+    character_id: usize,
+    action: Option<Message>,
 }
 
-impl Actions {
-    fn new() -> Self {
+impl Action {
+    fn new(character_id: usize) -> Self {
         Self{
-            actions: HashMap::new()
+            character_id,
+            action: Some(Message::Quit)
         }
         
     }
-    fn add_character(&mut self, character: &Character) {
-        self.actions.insert(character.id.clone(), Vec::new());
+
+    fn set_action(&mut self, message: Message){
+        self.action = Some(message);
     }
 
-    fn add_action(&mut self, character: &Character, message: Message){
-        let messages = self.actions.get_mut(&character.id);
-        match messages {
-            Some(messages) => {
-                messages.push(message);
-            }
-            None => return
-            
-        }
-    }
-
-    fn clear_actons(&mut self){
-        for value in self.actions.values_mut(){
-            value.clear();
-        }
-
-    }
-
-    fn clear(&mut self){
-        self.actions.clear();
+    fn clear_acton(&mut self) {
+        self.action = Some(Message::Quit);
     }
     
 }
 
 fn main() {
-    println!("Hello, world!");
+    let mut characters: Vec<Character> = Vec::new();
+    let mut actions: Vec<Action> = Vec::new();
+
+
 }
