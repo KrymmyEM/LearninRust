@@ -1,5 +1,6 @@
-use std::{char, collections::HashMap};
-
+// Evgeny Momotov (KrymmyEM)
+// Based on: https://doc.rust-lang.ru/book/ch06-00-enums.html
+// with my own ideas
 
 enum Message {
     Quit,
