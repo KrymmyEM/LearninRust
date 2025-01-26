@@ -1,4 +1,4 @@
-use std::{collections::HashMap, str::FromStr};
+use std::collections::HashMap;
 
 
 enum Message {
@@ -52,8 +52,14 @@ impl Actions {
     }
 
     fn add_action(&mut self, character: &Character, message: Message){
-        let mut messages = self.actions.get_mut(&character.id).expect("Key not found");
-        messages.push(message);
+        let messages = self.actions.get_mut(&character.id);
+        match messages {
+            Some(messages) => {
+                messages.push(message);
+            }
+            None => return
+            
+        }
     }
 
     fn clear_actons(&mut self){
