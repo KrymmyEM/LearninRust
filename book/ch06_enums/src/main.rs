@@ -117,8 +117,8 @@ fn handle_actions(actions: &Vec<Action>, characters: &mut Vec<Character>){
 }
 
 fn main() {
-    let mut characters: Vec<Character> = Vec::new();
-    let mut actions: Vec<Action> = Vec::new();
+    let mut characters: Vec<Character> = Vec::new(); // Not good realisation be better with HashMap becouse with vector future algoritm be O(n)
+    let mut actions: Vec<Action> = Vec::new(); // Same but it more have a sense becouse is dinamic vecotr
 
 
 }
