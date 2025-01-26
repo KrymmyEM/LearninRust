@@ -27,7 +27,7 @@ struct Character {
 
 impl Character {
     fn character_die(character: &Character) -> bool{
-        character.health >= 0
+        character.health > 0
     }
 
     fn new(id: String, health: i32, position: Position) -> Self {
@@ -112,7 +112,7 @@ fn handle_actions(actions: &Vec<Action>, characters: &mut Vec<Character>){
     }
 
     characters.retain(Character::character_die);
-    
+
 }
 
 fn main() {
