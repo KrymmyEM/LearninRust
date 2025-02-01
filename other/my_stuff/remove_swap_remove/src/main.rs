@@ -8,7 +8,7 @@ fn generate_random_vector(size: usize) -> Vec<i32> {
 
 
 
-fn remove(vector: &mut Vec<i32>, index: usize) {
+fn remove(mut vector: &mut Vec<i32>, index: usize) {
     if !vector.is_empty(){
         let size = vector.len();
         if index > size - 1 {
@@ -19,43 +19,46 @@ fn remove(vector: &mut Vec<i32>, index: usize) {
             return
         }
         let element: i32 = vector[index];
-        let first_part = &vector[..index];
-        let second_part = &vector[index+1..size];
-        let mut new_vec = [first_part, second_part].concat();
-        *vector = new_vec.to_vec();
+        let mut first_part = vector[..index].to_vec();
+        let mut second_part = vector[index+1..size].to_vec();
+        first_part.append(&mut second_part);
+        *vector = first_part;
     }
 }
 
-fn swap_remove(vector: &mut Vec<i32>, index: usize) {
+fn swap_remove(vector: &mut Vec<i32>, index: usize) -> Option<i32>{
     if !vector.is_empty(){
         let size = vector.len();
         if index > size - 1 {
             panic!("Index out of range!");
         }
         if index == size - 1 {
-            vector.pop();
-            return
+            return vector.pop();
         }
+        let b = vector[index];
         vector[index] = vector[size-1];
-        vector.pop();
+        vector[size-1] = b;
+        return vector.pop();
     }
+    None
 }
 
 fn test_base_remove(mut data: Vec<i32>) {
-    //println!("{:?}", data);
     data.remove(1);
-    //println!("{:?}", data);
-    data.swap_remove(5);
-    //println!("{:?}", data);
 }
 
 fn test_handmade_remove(mut data: Vec<i32>) {
-    //println!("{:?}", data);
     remove(&mut data, 1);
-    //println!("{:?}", data);
-    swap_remove(&mut data, 5);
-    //println!("{:?}", data);
 }
+
+fn test_base_swap_remove(mut data: Vec<i32>) {
+    data.swap_remove(5);
+}
+
+fn test_handmade_swap_remove(mut data: Vec<i32>) {
+    swap_remove(&mut data, 5);
+}
+
 
 fn benchmark<F>(func: F, mut data: Vec<i32>, label: &str)
 where
@@ -70,8 +73,10 @@ where
 // With prints base ralisation slower than my handmade
 // idk why. But without prints my handmade is slower
 fn main() {
-    let mut data = generate_random_vector(100);
+    let mut data = generate_random_vector(1000000);
     benchmark(test_base_remove, data.clone(), "base remove");
     benchmark(test_handmade_remove, data.clone(), "handmade remove");
+    benchmark(test_base_swap_remove, data.clone(), "base swap remove");
+    benchmark(test_handmade_swap_remove, data.clone(), "handmade swap remove");
    
 }
